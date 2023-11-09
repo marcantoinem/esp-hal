@@ -640,16 +640,14 @@ impl<'d, Pin: OutputPin, PWM: PwmPeripheral, const OP: u8, const IS_A: bool> emb
 {
     type Duty = u16;
 
-    /// This only set the timestamp to 0, if you want to disable the PwmPin,
-    /// it must be done on the timer itself.
+    /// Disable the output of the pin
     fn disable(&mut self) {
-        self.set_timestamp(0);
+        self._pin.enable_output(false);
     }
 
-    /// This only set the timestamp to the maximum, if you want to disable the
-    /// PwmPin, it must be done on the timer itself.
+    /// Enable the output of the pin
     fn enable(&mut self) {
-        self.set_timestamp(u16::MAX);
+        self._pin.enable_output(true);
     }
 
     /// Get the duty of the pin
